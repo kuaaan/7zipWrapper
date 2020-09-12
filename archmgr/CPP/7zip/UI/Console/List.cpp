@@ -1207,13 +1207,14 @@ HRESULT ListArchives(CCodecs *codecs,
  
     CReadArcItem item;
     UStringVector pathParts;
-    
+    INT             FileCount = 0;
+
     for (UInt32 i = 0; i < numItems; i++)
     {
       if (NConsoleClose::TestBreakSignal())
         return E_ABORT;
 
-      if (0 != pResult->MaxCount && i >= pResult->MaxCount)
+      if (0 != pResult->MaxCount && FileCount >= pResult->MaxCount)
       {
           return E_ABORT;
       }
@@ -1225,8 +1226,6 @@ HRESULT ListArchives(CCodecs *codecs,
       if (stdInMode && res == E_INVALIDARG)
         break;
       RINOK(res);
-
-      Item.FileName = fp.FilePath;
 
       if (arc.Ask_Aux)
       {
@@ -1245,6 +1244,13 @@ HRESULT ListArchives(CCodecs *codecs,
       }
 
       RINOK(Archive_IsItem_Dir(archive, i, fp.IsDir));
+
+      Item.FileName = fp.FilePath;
+      Item.IsDir = fp.IsDir;
+      if (false == fp.IsDir)
+      {
+          FileCount++;
+      }
 
       if (!allFilesAreAllowed)
       {
@@ -1274,7 +1280,7 @@ HRESULT ListArchives(CCodecs *codecs,
       Item.FileSize.QuadPart = st.Size.Val;
       Item.CompressedSize.QuadPart = st.PackSize.Val;
       Item.FileTime = st.MTime.Val;
-
+      
       pResult->pItemList->push_back(Item);
 
       if (fp.IsDir)

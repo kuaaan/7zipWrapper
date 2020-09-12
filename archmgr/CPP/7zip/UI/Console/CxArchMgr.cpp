@@ -6,7 +6,7 @@
 #pragma comment (lib, "shlwapi.lib")
 
 #include "CxArchMgr.h"
-
+#include "ExitCode.h"
 
 extern int MY_CDECL Main
 (
@@ -203,6 +203,15 @@ ARESULT		CxArchMgr::EnumerateItems(const WCHAR* ArchFilePath, OUT PARCH_RESULT* 
 	}
 
 	aResult = Main(Argc, Argv);
+	if (NExitCode::kUserBreak == aResult)
+	{
+		aResult = ERROR_SUCCESS;
+
+		if (pResult)
+		{
+			pResult->Aborted = TRUE;
+		}
+	}
 
 FINAL:
 

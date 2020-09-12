@@ -11,6 +11,7 @@ typedef struct _ARCH_ITEM
 	LARGE_INTEGER FileSize;	
 	LARGE_INTEGER CompressedSize;
 	FILETIME	FileTime;
+	BOOL		IsDir;
 } ARCH_ITEM, *PARCH_ITEM;
 
 typedef struct _ARCH_RESULT
@@ -19,6 +20,7 @@ typedef struct _ARCH_RESULT
 	wstring				ArchType;		// ex : "zip"
 	LARGE_INTEGER		ArchFileSize;
 	ULONG				MaxCount;
+	BOOL				Aborted;
 
 	vector<ARCH_ITEM>*	pItemList;
 	string				StdOutput;
