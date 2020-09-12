@@ -529,9 +529,8 @@ cmd /c ..\..\..\..\..\..\AddSymbol.bat "$(OutDir)$(TargetName).pdb"</Command>
       <OutputFile>.\x64\Release/Console.bsc</OutputFile>
     </Bscmake>
     <PostBuildEvent>
-      <Command>if not exist "..\..\..\..\..\..\Bin\$(PlatformTarget)\$(Configuration)\module" mkdir ..\..\..\..\..\..\Bin\$(PlatformTarget)\$(Configuration)\module
-copy $(OutDir)$(TargetName)$(TargetExt) ..\..\..\..\..\..\Bin\$(PlatformTarget)\$(Configuration)\module
-cmd /c ..\..\..\..\..\..\AddSymbol.bat "$(OutDir)$(TargetName).pdb"</Command>
+      <Command>
+      </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
